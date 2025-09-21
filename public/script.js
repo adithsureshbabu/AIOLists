@@ -2249,7 +2249,9 @@ function startNameEditing(listItemElement, list) {
     }
     
     try {
-      await navigator.clipboard.writeText(elements.updateStremioBtn.href);
+      setTimeout(() => {
+        navigator.clipboard.writeText(elements.updateStremioBtn.href.replace("stremio://", `${window.location.protocol}//`)).then(() => { console.log("Copied to clipboard!"); }).catch(err => { throw err; });
+      }, 10);
       const originalContent = elements.copyManifestBtn.innerHTML;
       elements.copyManifestBtn.innerHTML = '<span>Copied!</span>'; elements.copyManifestBtn.disabled = true;
       setTimeout(() => { elements.copyManifestBtn.innerHTML = originalContent; elements.copyManifestBtn.disabled = false; }, 2000);
